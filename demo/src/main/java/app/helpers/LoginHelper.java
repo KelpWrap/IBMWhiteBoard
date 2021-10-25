@@ -1,8 +1,9 @@
-package app;
+package app.helpers;
 
 import java.util.List;
 import java.util.Scanner;
 
+import app.User;
 import app.sqliteConnect.DbConnector;
 
 

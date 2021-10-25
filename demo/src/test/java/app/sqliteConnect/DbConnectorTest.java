@@ -5,12 +5,8 @@ import org.junit.jupiter.api.Test;
 import app.Content;
 import app.User;
 
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.Assert;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,16 +32,14 @@ public class DbConnectorTest {
         dbConnector.addUserToDb(testUser1);
         List<User> usersList = dbConnector.getUserDataFromDb(testUser1);
         Assert.isTrue(usersList.get(0).getUsername().equals(testUser1.getUsername()), "Username is not correctly loaded");
-        dbConnector.clearDb();
         dbConnector.disconnect();
     }
 
-    @Test void addContentTest() throws Exception{
+    @Test void addandLoadContentTest() throws Exception{
         dbConnector.connect();
         dbConnector.addContentToDb(testContent1);
         List<Content> contentList = dbConnector.getContent();
         Assert.isTrue(contentList.get(0).getId() == (testContent1.getId()), "Content is not correctly loaded.");
-        dbConnector.clearDb();
         dbConnector.disconnect();
     }
     

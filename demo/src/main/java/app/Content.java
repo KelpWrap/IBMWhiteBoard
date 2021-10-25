@@ -29,5 +29,13 @@ public class Content {
     public void setBody(String body){
         this.body = body;
     }
+
+    public String toStringNoId() {
+        return String.format("%d: %s",this.creatorId, this.body);
+    }
+
+    public String toString() {
+        return String.format("ID: %d, %d: %s",this.id, this.creatorId, this.body);
+    }
     
 }

@@ -3,12 +3,15 @@ package app;
 import java.util.List;
 import java.util.Scanner;
 
+import app.helpers.LoginHelper;
+import app.helpers.PasswordHelper;
 import app.sqliteConnect.DbConnector;
 
 
 public class App {
 	private DbConnector dbConnector;
 	private LoginHelper loginHelper;
+	private PasswordHelper passwordHelper;
 	private User user;
 	
 
@@ -16,6 +19,7 @@ public class App {
 		String path = "C:/Users/oscan/Documents/work/repo/tools/sqlite3/test1.db";
 		this.dbConnector = new DbConnector(path);
 		this.loginHelper = new LoginHelper();
+		this.passwordHelper = new PasswordHelper();
 	}
 
 	public User getCurrentUser(){
@@ -27,7 +31,7 @@ public class App {
 		App app = new App();
 		while (isRunning){
 			if (app.getCurrentUser() == null) {
-			System.out.println("Welcome to the Whiteboard! Type Help to get an overview over commands. Type Login to start the log in process.");
+				System.out.println("Welcome to the Whiteboard! Type Help to get an overview over commands. Type Login to start the log in process.");
 			}
 			else {
 				app.DisplayWhiteboard();
@@ -44,6 +48,12 @@ public class App {
 				case "help":
 				app.initiateHelp();
 				break;
+				case "change Password":
+				app.initiatePasswordChange(userInput);
+				break;
+				case "log out":
+				app.logOut();
+				break;
 				case "quit":
 				app.quit();
 				isRunning = false;
@@ -53,12 +63,29 @@ public class App {
 		}
 	}
 
+	private void initiatePasswordChange(Scanner userInput) {
+		if (this.user.getUserLevel() == 0){
+			System.out.println("The standard team account can not have its password changed");
+		} else {
+			passwordHelper.changePassword(userInput, dbConnector, user.getUsername());
+		}
+	}
+
+	private void logOut() {
+		this.user = null;
+	}
+
 	private void quit() {
 		dbConnector.disconnect();
 	}
 
 	private void DisplayWhiteboard() {
-
+		dbConnector.connect();
+		List<Content> contentList = dbConnector.getContent();
+		for (Content content : contentList){
+			System.out.println(content.toString());
+		}
+		dbConnector.disconnect();
 	}
 
 	private void initiateHelp() {
