@@ -35,9 +35,6 @@ public class DbConnectorTest {
         dbConnector.disconnect();
     }
 
-    @Test
-    public void
-
     
 
     @Test
