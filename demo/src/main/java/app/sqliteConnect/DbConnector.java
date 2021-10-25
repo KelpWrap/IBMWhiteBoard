@@ -15,8 +15,21 @@ public class DbConnector {
     private String path = null;
     private Connection c = null;
 
-    public DbConnector(String path){
-        this.path = path;
+    public DbConnector(String fileName){
+        this.path = fileName;
+        String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                conn.getMetaData();
+                System.out.println("A new database has been created.");
+                DbSetup dbSetup = new dbSetup();
+                
+                
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void connect(){
@@ -32,7 +45,7 @@ public class DbConnector {
     }
     public void addContentToDb(Content content) {
         try{
-            PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (ID, AUTHOR, BODY) values (?,?,?,?,?)");
+            PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (ID, AUTHOR, BODY) values (?,?,?)");
             stmt.setInt(1, content.getId());
             stmt.setInt(2, content.getCreatorId());
             stmt.setString(3, content.getBody());
@@ -85,6 +98,21 @@ public class DbConnector {
         }
     }
 
+    public void updateUser(User user) {
+        try{
+            PreparedStatement stmt = c.prepareStatement("UPDATE USERS SET PASSWORD = ? WHERE id = ?");
+            stmt.setInt(2, user.getId());
+            stmt.setString(1, user.getPassword());
+            stmt.executeUpdate();
+            stmt.close();
+            c.commit();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+    }
+    }
+
     public List<User> getUserDataFromDb(User user){
         try{
             PreparedStatement stmt = c.prepareStatement("SELECT * FROM USERS WHERE PASSWORD = ? AND USERNAME = ?");
@@ -117,7 +145,6 @@ public class DbConnector {
         try{
             Statement stmt = c.createStatement();
             stmt.executeUpdate("DELETE FROM USERS");
-            stmt.executeUpdate("VACUUM");
             stmt.close();
             c.commit();
         } catch ( Exception e ) {
@@ -135,6 +162,8 @@ public class DbConnector {
         }
         
     }
+
+
 
     
     
