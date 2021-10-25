@@ -2,10 +2,13 @@ package app.sqliteConnect;
 
 
 import java.sql.*;
+
+import app.Content;
 import app.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 public class DbConnector {
@@ -27,6 +30,43 @@ public class DbConnector {
             System.exit(0);
          }
     }
+    public void addContentToDb(Content content) {
+        try{
+            PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (ID, AUTHOR, BODY) values (?,?,?,?,?)");
+            stmt.setInt(1, content.getId());
+            stmt.setInt(2, content.getCreatorId());
+            stmt.setString(3, content.getBody());
+            stmt.executeUpdate();
+            stmt.close();
+            c.commit();
+
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+    }
+    public List<Content> getContent() {
+        try{
+        PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT");
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<Content> contentList = new ArrayList<>();
+        while (rs.next()){
+            int id = rs.getInt("id");
+            int authorId = rs.getInt("author");
+            String body = rs.getString("body");
+            contentList.add(new Content(id, authorId, body));
+        }
+        rs.close();
+        stmt.close();
+        c.commit();
+        return contentList;
+
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+            return null;
+        }
+    }
     
     public void addUserToDb(User user){
         try{
@@ -43,7 +83,6 @@ public class DbConnector {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
-        
     }
 
     public List<User> getUserDataFromDb(User user){
@@ -89,7 +128,7 @@ public class DbConnector {
     
     public void disconnect(){ 
         try{
-        c.close();
+            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);

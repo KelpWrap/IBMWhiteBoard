@@ -9,6 +9,7 @@ import app.sqliteConnect.DbConnector;
 public class LoginHelper {
     public LoginHelper(){}
     public List<User> logIn(Scanner input, DbConnector dbConnector){
+        dbConnector.connect();
         System.out.println("Enter your username");
 		while(!input.hasNext());
 		String username = "";
@@ -18,7 +19,6 @@ public class LoginHelper {
 		String password = "";
 		if (input.hasNext()) password = input.nextLine();
 		User user = new User(username, password);
-		dbConnector.connect();
 		return dbConnector.getUserDataFromDb(user);
     }
     
