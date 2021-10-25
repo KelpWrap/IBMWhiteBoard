@@ -26,7 +26,6 @@ public class DbConnector {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
          }
-         System.out.println("Opened database successfully");
     }
     
     public void addUserToDb(User user){
@@ -79,6 +78,7 @@ public class DbConnector {
         try{
             Statement stmt = c.createStatement();
             stmt.executeUpdate("DELETE FROM USERS");
+            stmt.executeUpdate("VACUUM");
             stmt.close();
             c.commit();
         } catch ( Exception e ) {
