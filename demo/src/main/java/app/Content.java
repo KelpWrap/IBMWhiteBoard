@@ -2,12 +2,17 @@ package app;
 
 public class Content {
     private int id;
-    private int creatorId;
+    private String author;
     private String body;
 
-    public Content(int id, int creatorId, String body){
+    public Content(int id, String author, String body){
         this.id = id;
-        this.creatorId = creatorId;
+        this.author = author;
+        this.body = body;
+    }
+
+    public Content(String author, String body){
+        this.author = author;
         this.body = body;
     }
 
@@ -17,11 +22,11 @@ public class Content {
     public void setId(int id){
         this.id = id;
     }
-    public int getCreatorId(){
-        return this.creatorId;
+    public String getCreatorId(){
+        return this.author;
     }
-    public void setCreatorId(int creatorId){
-        this.creatorId = creatorId;
+    public void setCreatorId(String author){
+        this.author = author;
     }
     public String getBody(){
         return body;
@@ -31,11 +36,11 @@ public class Content {
     }
 
     public String toStringNoId() {
-        return String.format("%d: %s",this.creatorId, this.body);
+        return String.format("%d: %s",this.author, this.body);
     }
 
     public String toString() {
-        return String.format("ID: %d, %d: %s",this.id, this.creatorId, this.body);
+        return String.format("ID: %d, %d: %s",this.id, this.author, this.body);
     }
     
 }

@@ -3,6 +3,7 @@ package app;
 import java.util.List;
 import java.util.Scanner;
 
+import app.helpers.ContentHelper;
 import app.helpers.LoginHelper;
 import app.helpers.PasswordHelper;
 import app.sqliteConnect.DbConnector;
@@ -12,14 +13,16 @@ public class App {
 	private DbConnector dbConnector;
 	private LoginHelper loginHelper;
 	private PasswordHelper passwordHelper;
+	private ContentHelper contentHelper;
 	private User user;
 	
 
 	public App(){
-		String path = "C:/Users/oscan/sqlite3/WhiteBoard3.db";
+		String path = "WhiteBoard.db";
 		this.dbConnector = new DbConnector(path);
 		this.loginHelper = new LoginHelper();
 		this.passwordHelper = new PasswordHelper();
+		this.contentHelper = new ContentHelper();
 	}
 
 	public User getCurrentUser(){
@@ -48,7 +51,7 @@ public class App {
 				case "help":
 				app.initiateHelp();
 				break;
-				case "change Password":
+				case "change password":
 				app.initiatePasswordChange(userInput);
 				break;
 				case "write a note":
@@ -63,6 +66,7 @@ public class App {
 				case "quit":
 				app.quit();
 				isRunning = false;
+				System.out.println("The program can be closed now.");
 				break;
 			}
 
@@ -73,6 +77,7 @@ public class App {
 	}
 
 	private void initiateNewContent(Scanner userInput) {
+		contentHelper.addContent(userInput, dbConnector, user.getAlias());
 	}
 
 	private void initiatePasswordChange(Scanner userInput) {
@@ -94,9 +99,9 @@ public class App {
 
 	private void DisplayWhiteboard() {
 		dbConnector.connect();
-		List<Content> contentList = dbConnector.getContent();
+		List<Content> contentList = dbConnector.getAllContent();
 		for (Content content : contentList){
-			System.out.println(content.toString());
+			System.out.println(content.toStringNoId());
 		}
 		dbConnector.disconnect();
 	}

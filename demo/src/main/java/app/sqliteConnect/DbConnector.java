@@ -62,7 +62,7 @@ public class DbConnector {
             System.exit(0);
         }
     }
-    public List<Content> getContent() {
+    public List<Content> getAllContent() {
         try{
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT");
         ResultSet rs = stmt.executeQuery();
@@ -84,15 +84,38 @@ public class DbConnector {
             return null;
         }
     }
+
+    public List<Content> getContentByUser(User user) {
+        try{
+        PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT WHERE USERNAME = ?");
+        stmt.setString(1, user.getUsername());
+        ResultSet rs = stmt.executeQuery();
+        ArrayList<Content> contentList = new ArrayList<>();
+        while (rs.next()){
+            int id = rs.getInt("id");
+            String authorId = rs.getString("author");
+            String body = rs.getString("body");
+            contentList.add(new Content(id, authorId, body));
+        }
+        rs.close();
+        stmt.close();
+        c.commit();
+        return contentList;
+
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+            return null;
+        }
+    }
     
     public void addUserToDb(User user){
         try{
-            PreparedStatement stmt = c.prepareStatement("INSERT INTO USERS (ID, PASSWORD, ALIAS, USERLEVEL, USERNAME) values (?,?,?,?,?)");
-            stmt.setInt(1, user.getId());
-            stmt.setString(2, user.getPassword());
-            stmt.setString(3, user.getAlias());
-            stmt.setInt(4, user.getUserLevel());
-            stmt.setString(5, user.getUsername());
+            PreparedStatement stmt = c.prepareStatement("INSERT INTO USERS (PASSWORD, ALIAS, USERLEVEL, USERNAME) values (?,?,?,?,?)");
+            stmt.setString(1, user.getPassword());
+            stmt.setString(2, user.getAlias());
+            stmt.setInt(3, user.getUserLevel());
+            stmt.setString(4, user.getUsername());
             stmt.executeUpdate();
             stmt.close();
             c.commit();
