@@ -61,6 +61,9 @@ public class App {
 				case "delete a note":
 				app.initiateDeleteContent(userInput);
 				break;
+				case "add new user":
+				app.initiateAddNewUser(userInput);
+				break;
 				case "resetdb":
 				app.initiateResetDb();
 				System.out.println("database reset");
@@ -76,6 +79,12 @@ public class App {
 			}
 
 		}
+	}
+
+	private void initiateAddNewUser(Scanner userInput) {
+		dbConnector.connect();
+		loginHelper.createNewUser(userInput, dbConnector);
+		dbConnector.disconnect();
 	}
 
 	private void initiateResetDb() {

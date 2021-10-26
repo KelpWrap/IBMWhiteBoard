@@ -18,7 +18,7 @@ public class ContentHelper {
         dbConnector.addContentToDb(content);
     }
     public void deleteContent(Scanner userInput, DbConnector dbConnector, User user) {
-        //not implemented yet
+        //not implemented yet // we want to view the content that is deletable, depending on userlevel. Wait for input from user, where they chose the id of which content to delete.
     }
 
 }

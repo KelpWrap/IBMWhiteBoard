@@ -7,17 +7,24 @@ public class User {
     private int userLevel;
     private String username;
 
-    public User(int id,  String userName, String password, String alias, int userLevel){
+    public User(int id,  String username, String password, String alias, int userLevel){
         this.id = id;
         this.alias = alias;
         this.userLevel = userLevel;
-        this.username = userName;
+        this.username = username;
         this.password = password;
     }
 
     public User(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String alias, int userLevel) {
+        this.alias = alias;
+        this.userLevel = userLevel;
+        this.username = username;
+        this.password = "";
     }
 
     public void setId(int id){
