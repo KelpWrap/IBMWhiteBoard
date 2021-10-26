@@ -33,6 +33,7 @@ public class App {
 		boolean isRunning = true;
 		App app = new App();
 		while (isRunning){
+			System.out.println();
 			if (app.getCurrentUser() == null) {
 				System.out.println("Welcome to the Whiteboard! Type Help to get an overview over commands. Type Login to start the log in process.");
 			}

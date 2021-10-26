@@ -108,6 +108,7 @@ public class DbConnector {
             return null;
         }
     }
+
     
     public void addUserToDb(User user){
         try{
