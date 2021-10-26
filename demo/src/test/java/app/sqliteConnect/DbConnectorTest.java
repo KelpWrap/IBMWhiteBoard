@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DbConnectorTest {
     User testUser1 = new User(1,"John Smith", "abc" , "John Smith", 1);
-    Content testContent1 = new Content(1,1,"this is very interesting");
+    Content testContent1 = new Content(1,"John Smith","this is very interesting");
     String path = "C:/Users/oscan/Documents/work/repo/tools/sqlite3/test1.db";
     DbConnector dbConnector = new DbConnector(path);
 
@@ -38,7 +38,7 @@ public class DbConnectorTest {
     @Test void addandLoadContentTest() throws Exception{
         dbConnector.connect();
         dbConnector.addContentToDb(testContent1);
-        List<Content> contentList = dbConnector.getContent();
+        List<Content> contentList = dbConnector.getAllContent();
         Assert.isTrue(contentList.get(0).getId() == (testContent1.getId()), "Content is not correctly loaded.");
         dbConnector.disconnect();
     }

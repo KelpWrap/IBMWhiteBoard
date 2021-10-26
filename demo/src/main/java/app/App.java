@@ -60,8 +60,9 @@ public class App {
 				case "delete a note":
 				app.initiateDeleteContent(userInput);
 				break;
-				case "resetDb":
+				case "resetdb":
 				app.initiateResetDb();
+				System.out.println("database reset");
 				break;
 				case "log out":
 				app.logOut();
@@ -77,15 +78,21 @@ public class App {
 	}
 
 	private void initiateResetDb() {
+		dbConnector.connect();
 		dbConnector.resetDb();
+		dbConnector.disconnect();
 	}
 
 	private void initiateDeleteContent(Scanner userInput) {
+		dbConnector.connect();
 		contentHelper.deleteContent(userInput, dbConnector, user);
+		dbConnector.disconnect();
 	}
 
 	private void initiateNewContent(Scanner userInput) {
+		dbConnector.connect();
 		contentHelper.addContent(userInput, dbConnector, user.getAlias());
+		dbConnector.disconnect();
 	}
 
 	private void initiatePasswordChange(Scanner userInput) {
