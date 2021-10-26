@@ -12,19 +12,18 @@ import java.util.List;
 
 
 public class DbConnector {
-    private String path = null;
+    private String url = null;
     private Connection c = null;
+    private DbSetup dbSetup = new DbSetup();
 
     public DbConnector(String fileName){
-        this.path = fileName;
-        String url = "jdbc:sqlite:C:/sqlite/db/" + fileName;
+        
+        url = "jdbc:sqlite:" + fileName;
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 conn.getMetaData();
                 System.out.println("A new database has been created.");
-                DbSetup dbSetup = new dbSetup();
-                
-                
+                dbSetup.setupTables(url);
             }
 
         } catch (SQLException e) {
@@ -35,13 +34,17 @@ public class DbConnector {
     public void connect(){
         try {
             Class.forName("org.sqlite.JDBC");
-            String connectString = "jdbc:sqlite:"+path;
-            c = DriverManager.getConnection(connectString);
+            c = DriverManager.getConnection(url);
             c.setAutoCommit(false);
          } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
          }
+    }
+
+    public void resetDb(){
+        clearDb();
+        dbSetup.resetData(url);
     }
     public void addContentToDb(Content content) {
         try{
@@ -111,7 +114,7 @@ public class DbConnector {
             System.exit(0);
         }
     }
-    }
+
 
     public List<User> getUserDataFromDb(User user){
         try{
@@ -146,6 +149,10 @@ public class DbConnector {
             Statement stmt = c.createStatement();
             stmt.executeUpdate("DELETE FROM USERS");
             stmt.close();
+            c.commit();
+            Statement stmt2 = c.createStatement();
+            stmt2.executeUpdate("DELETE FROM CONTENT");
+            stmt2.close();
             c.commit();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
