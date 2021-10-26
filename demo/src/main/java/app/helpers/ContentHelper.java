@@ -3,6 +3,7 @@ package app.helpers;
 import java.util.Scanner;
 
 import app.Content;
+import app.User;
 import app.sqliteConnect.DbConnector;
 
 public class ContentHelper {
@@ -16,6 +17,8 @@ public class ContentHelper {
 		if (input.hasNext()) body = input.nextLine();
         Content content = new Content(alias, body);
         dbConnector.addContentToDb(content);
+    }
+    public void deleteContent(Scanner userInput, DbConnector dbConnector, User user) {
     }
 
 }

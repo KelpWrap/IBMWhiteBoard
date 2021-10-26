@@ -81,6 +81,7 @@ public class App {
 	}
 
 	private void initiateDeleteContent(Scanner userInput) {
+		contentHelper.deleteContent(userInput, dbConnector, user);
 	}
 
 	private void initiateNewContent(Scanner userInput) {
