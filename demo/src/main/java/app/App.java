@@ -16,7 +16,7 @@ public class App {
 	
 
 	public App(){
-		String path = "C:/Users/oscan/Documents/work/repo/tools/sqlite3/test1.db";
+		String path = "C:/Users/oscan/Documents/work/repo/tools/sqlite3/WhiteBoard3.db";
 		this.dbConnector = new DbConnector(path);
 		this.loginHelper = new LoginHelper();
 		this.passwordHelper = new PasswordHelper();
@@ -51,6 +51,12 @@ public class App {
 				case "change Password":
 				app.initiatePasswordChange(userInput);
 				break;
+				case "write a note":
+				app.initiateNewContent(userInput);
+				break;
+				case "delete a note":
+				app.initiateDeleteContent(userInput);
+				break;
 				case "log out":
 				app.logOut();
 				break;
@@ -61,6 +67,12 @@ public class App {
 			}
 
 		}
+	}
+
+	private void initiateDeleteContent(Scanner userInput) {
+	}
+
+	private void initiateNewContent(Scanner userInput) {
 	}
 
 	private void initiatePasswordChange(Scanner userInput) {
@@ -76,6 +88,7 @@ public class App {
 	}
 
 	private void quit() {
+		dbConnector.connect();
 		dbConnector.disconnect();
 	}
 

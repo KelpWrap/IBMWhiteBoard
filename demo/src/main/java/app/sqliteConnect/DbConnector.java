@@ -19,10 +19,9 @@ public class DbConnector {
     public DbConnector(String fileName){
         
         url = "jdbc:sqlite:" + fileName;
-        try (Connection conn = DriverManager.getConnection(url)) {
+        try  {
+            Connection conn = DriverManager.getConnection(url);
             if (conn != null) {
-                conn.getMetaData();
-                System.out.println("A new database has been created.");
                 dbSetup.setupTables(url);
             }
 

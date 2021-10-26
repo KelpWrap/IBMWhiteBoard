@@ -7,7 +7,7 @@ public class SQLiteJDBC {
       
       try {
          Class.forName("org.sqlite.JDBC");
-         c = DriverManager.getConnection("jdbc:sqlite:C:/Users/oscan/Documents/work/repo/tools/sqlite3/WhiteBoard.db");
+         c = DriverManager.getConnection("jdbc:sqlite:C:/Users/oscan/Documents/work/repo/tools/sqlite3/test2.db");
       } catch ( Exception e ) {
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          System.exit(0);
