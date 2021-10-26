@@ -1,5 +1,12 @@
 {
-    "sqltools.connections": [],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "whiteboard",
+            "database": "${workspaceFolder:IBM}/WhiteBoard.db"
+        }
+    ],
     "java.configuration.updateBuildConfiguration": "automatic",
     "sqltools.useNodeRuntime": true
 }

@@ -7,9 +7,10 @@ public class DbSetup {
     public DbSetup(){
     }
     
-    public void setupTables(String url){
+    public void setupTables(Connection conn){
         String sql = "CREATE TABLE IF NOT EXISTS USERS (ID integer PRIMARY KEY, PASSWORD text, ALIAS text, USERLEVEL integer, USERNAME text)";
-        try (Connection conn = DriverManager.getConnection(url)){
+        try {
+        conn.setAutoCommit(false);
         Statement stmt1 = conn.createStatement();
         // create a new table
         stmt1.execute(sql);
@@ -17,14 +18,15 @@ public class DbSetup {
         Statement stmt2 = conn.createStatement();
         // create a new table
         stmt2.execute(sql);
+        conn.commit();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void resetData(String url) {
+    public void resetData(Connection conn) {
         try{
-            Connection conn = DriverManager.getConnection(url);
+            conn.setAutoCommit(false);
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO USERS (PASSWORD, ALIAS, USERLEVEL, USERNAME) values (?,?,?,?)");
             stmt.setString(1, "");
             stmt.setString(2, "TeamMember");

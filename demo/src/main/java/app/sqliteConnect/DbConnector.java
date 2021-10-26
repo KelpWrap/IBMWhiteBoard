@@ -21,9 +21,10 @@ public class DbConnector {
         url = "jdbc:sqlite:" + fileName;
         try  {
             Class.forName("org.sqlite.JDBC");
-            Connection conn = DriverManager.getConnection(url);
-            if (conn != null) {
-                dbSetup.setupTables(url);
+            Connection c = DriverManager.getConnection(url);
+            c.setAutoCommit(false);
+            if (c != null) {
+                dbSetup.setupTables(c);
             }
 
         } catch (Exception e) {
@@ -45,7 +46,7 @@ public class DbConnector {
 
     public void resetDb(){
         clearDb();
-        dbSetup.resetData(url);
+        dbSetup.resetData(c);
     }
     public void addContentToDb(Content content) {
         try{
