@@ -16,7 +16,7 @@ public class App {
 	
 
 	public App(){
-		String path = "C:/Users/oscan/Documents/work/repo/tools/sqlite3/WhiteBoard3.db";
+		String path = "C:/Users/oscan/sqlite3/WhiteBoard3.db";
 		this.dbConnector = new DbConnector(path);
 		this.loginHelper = new LoginHelper();
 		this.passwordHelper = new PasswordHelper();

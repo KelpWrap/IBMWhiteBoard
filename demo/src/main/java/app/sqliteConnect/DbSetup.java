@@ -8,12 +8,12 @@ public class DbSetup {
     }
     
     public void setupTables(String url){
-        String sql = "CREATE TABLE IF NOT EXISTS USERS (ID integer PRIMARY KEY, PASSWORD text, ALIAS text, USERLEVEL integer, USERNAME text";
+        String sql = "CREATE TABLE IF NOT EXISTS USERS (ID integer PRIMARY KEY, PASSWORD text, ALIAS text, USERLEVEL integer, USERNAME text)";
         try (Connection conn = DriverManager.getConnection(url);
         Statement stmt1 = conn.createStatement()) {
         // create a new table
         stmt1.execute(sql);
-        sql = "CREATE TABLE IF NOT EXISTS CONTENT (ID integer PRIMARY KEY, AUTHOR text, BODY text, POSx text, POSy text";
+        sql = "CREATE TABLE IF NOT EXISTS CONTENT (ID integer PRIMARY KEY, AUTHOR text, BODY text, POSx text, POSy text)";
         Statement stmt2 = conn.createStatement();
         // create a new table
         stmt2.execute(sql);

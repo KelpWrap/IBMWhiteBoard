@@ -20,13 +20,15 @@ public class DbConnector {
         
         url = "jdbc:sqlite:" + fileName;
         try  {
+            Class.forName("org.sqlite.JDBC");
             Connection conn = DriverManager.getConnection(url);
             if (conn != null) {
                 dbSetup.setupTables(url);
             }
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
     }
 
