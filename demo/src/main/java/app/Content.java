@@ -22,10 +22,10 @@ public class Content {
     public void setId(int id){
         this.id = id;
     }
-    public String getCreatorId(){
+    public String getAuthor(){
         return this.author;
     }
-    public void setCreatorId(String author){
+    public void setAuthor(String author){
         this.author = author;
     }
     public String getBody(){

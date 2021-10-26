@@ -51,7 +51,7 @@ public class DbConnector {
         try{
             PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (ID, AUTHOR, BODY) values (?,?,?)");
             stmt.setInt(1, content.getId());
-            stmt.setInt(2, content.getCreatorId());
+            stmt.setString(2, content.getAuthor());
             stmt.setString(3, content.getBody());
             stmt.executeUpdate();
             stmt.close();
@@ -69,7 +69,7 @@ public class DbConnector {
         ArrayList<Content> contentList = new ArrayList<>();
         while (rs.next()){
             int id = rs.getInt("id");
-            int authorId = rs.getInt("author");
+            String authorId = rs.getString("author");
             String body = rs.getString("body");
             contentList.add(new Content(id, authorId, body));
         }
