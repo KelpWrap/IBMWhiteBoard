@@ -50,10 +50,9 @@ public class DbConnector {
     }
     public void addContentToDb(Content content) {
         try{
-            PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (ID, AUTHOR, BODY) values (?,?,?)");
-            stmt.setInt(1, content.getId());
-            stmt.setString(2, content.getAuthor());
-            stmt.setString(3, content.getBody());
+            PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (AUTHOR, BODY) values (?,?)");
+            stmt.setString(1, content.getAuthor());
+            stmt.setString(2, content.getBody());
             stmt.executeUpdate();
             stmt.close();
             c.commit();
@@ -88,7 +87,7 @@ public class DbConnector {
 
     public List<Content> getContentByUser(User user) {
         try{
-        PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT WHERE USERNAME = ?");
+        PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT WHERE AUTHOR = ?");
         stmt.setString(1, user.getUsername());
         ResultSet rs = stmt.executeQuery();
         ArrayList<Content> contentList = new ArrayList<>();

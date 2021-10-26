@@ -10,7 +10,6 @@ public class ContentHelper {
     public ContentHelper(){
     }
     public void addContent(Scanner input, DbConnector dbConnector, String alias){
-        dbConnector.connect();
         System.out.println("Enter your note! Finish with enter");
 		while(!input.hasNext());
 		String body = "";
@@ -19,6 +18,7 @@ public class ContentHelper {
         dbConnector.addContentToDb(content);
     }
     public void deleteContent(Scanner userInput, DbConnector dbConnector, User user) {
+        //not implemented yet
     }
 
 }

@@ -122,6 +122,23 @@ public class App {
 	}
 
 	private void initiateHelp() {
+		System.out.println("Login: initiates the log in process. Once logged in, the content of the whiteboard is displayed in the terminal.");
+
+		System.out.println("Help: Gives information over all available commands.");
+		
+		System.out.println("change Password: allows a logged in user to change password.");
+		
+		System.out.println("write a note: Allows you to write a new note on the whiteboard.");
+		
+		System.out.println("delete a note: Depending on account level, lets you delete either none, your own or all posts.");
+		
+		System.out.println("add user: Allows the mods and admins to add more private accounts."); 
+		
+		System.out.println("reset db: Populates db with standard users.");
+		
+		System.out.println("log out: logs you out of the account");
+		
+		System.out.println("quit: closes the program");
 	}
 
 	private void initiateLogin(Scanner input) {

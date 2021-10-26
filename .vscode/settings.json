@@ -5,6 +5,12 @@
             "driver": "SQLite",
             "name": "whiteboard",
             "database": "${workspaceFolder:IBM}/WhiteBoard.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "test2",
+            "database": "C:\\Users\\oscan\\Documents\\work\\repo\\tools\\sqlite3\\test2.db"
         }
     ],
     "java.configuration.updateBuildConfiguration": "automatic",

@@ -36,11 +36,11 @@ public class Content {
     }
 
     public String toStringNoId() {
-        return String.format("%d: %s",this.author, this.body);
+        return String.format("%s: %s",this.author, this.body);
     }
 
     public String toString() {
-        return String.format("ID: %d, %d: %s",this.id, this.author, this.body);
+        return String.format("ID: %d, %s: %s",this.id, this.author, this.body);
     }
     
 }

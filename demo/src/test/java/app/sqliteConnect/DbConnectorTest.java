@@ -14,7 +14,7 @@ import java.util.List;
 public class DbConnectorTest {
     User testUser1 = new User(1,"John Smith", "abc" , "John Smith", 1);
     Content testContent1 = new Content(1,"John Smith","this is very interesting");
-    String path = "C:/Users/oscan/Documents/work/repo/tools/sqlite3/test1.db";
+    String path = "WhiteBoard.db";
     DbConnector dbConnector = new DbConnector(path);
 
     @Test
