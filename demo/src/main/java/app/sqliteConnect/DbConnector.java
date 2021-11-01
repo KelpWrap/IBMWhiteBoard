@@ -48,6 +48,7 @@ public class DbConnector {
         clearDb();
         dbSetup.resetData(c);
     }
+
     public void addContentToDb(Content content) {
         try{
             PreparedStatement stmt = c.prepareStatement("INSERT INTO CONTENT (AUTHOR, BODY) values (?,?)");
@@ -62,6 +63,20 @@ public class DbConnector {
             System.exit(0);
         }
     }
+    
+    public void deleteContent(int contentId) {
+        try{
+            PreparedStatement stmt = c.prepareStatement("DELETE FROM CONTENT WHERE id =  (?)");
+            stmt.setInt(1, contentId);
+            stmt.executeUpdate();
+            stmt.close();
+            c.commit();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+    }
+
     public List<Content> getAllContent() {
         try{
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT");
@@ -88,7 +103,7 @@ public class DbConnector {
     public List<Content> getContentByUser(User user) {
         try{
         PreparedStatement stmt = c.prepareStatement("SELECT * FROM CONTENT WHERE AUTHOR = ?");
-        stmt.setString(1, user.getUsername());
+        stmt.setString(1, user.getAlias());
         ResultSet rs = stmt.executeQuery();
         ArrayList<Content> contentList = new ArrayList<>();
         while (rs.next()){
@@ -194,6 +209,8 @@ public class DbConnector {
         }
         
     }
+
+
 
 
 
